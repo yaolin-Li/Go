@@ -16,7 +16,7 @@ Being a contributor at The Algorithms, we request you to follow the points menti
 
 - You did your own work.
   - No plagiarism is allowed. Any plagiarized work will not be merged.
-- Your work will be distributed under the [MIT License](https://github.com/TheAlgoritms/Go/blob/master/LICENSE) once your pull request has been merged.
+- Your work will be distributed under the [MIT License](https://github.com/TheAlgorithms/Go/blob/master/LICENSE) once your pull request has been merged.
 - Please follow the repository guidelines and standards mentioned below.
 
 **New implementation** New implementations are welcome!
@@ -157,6 +157,40 @@ Common prefixes:
 - docs: Documentation changes
 - test: Correct existing tests or add new ones
 
+### For New Gophers
+
+#### Installing Go
+
+- Installation (only needs to be installed once.)
+  - Mac (using home-brew): `brew install go`
+  - Windows (MSYS2 64-bit): `choco install golang` [Chocolatey Package Manager](https://chocolatey.org/)
+  - Linux (Debian): `sudo apt-get install golang`
+  - Manual Installation: [Downloads - The Go Programming Language](https://golang.org/dl/)
+- Running (all platforms): `go run filexyz.go`
+
+> Note: New packages should not be `main`, and never implement `main` functions for any package.
+
+#### Code formatter
+To format your code, you can use the gofmt tool directly:
+
+```bash
+gofmt -w filexyz.go
+```
+
+Or you can use the "go fmt" command:
+
+```bash
+go fmt path/to/your/package
+```
+
+#### Building
+
+To build you code locally, simply run:
+
+```bash
+go build .
+```
+
 ### Pull Requests
 
 - Check out our [pull request template](https://github.com/TheAlgorithms/Go/blob/master/.github/PULL_REQUEST_TEMPLATE/pull_request.md
@@ -164,20 +198,7 @@ Common prefixes:
 
 #### Building Locally
 
-Before submitting a pull request,
-build the code locally or using the convenient [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/TheAlgorithms/Go) service.
-
-```bash
-go build .
-```
-
-#### Code Formatter
-
-- Installation (only needs to be installed once.)
-  - Mac (using home-brew): `brew install go`
-  - Windows (MSYS2 64-bit): `choco install golang` [Chocolatey Package Manager](https://chocolatey.org/)
-  - Linux (Debian): `sudo apt-get install golang`
-- Running (all platforms): `go run main.go` or `go build main.go`
+Before submitting a pull request, [build the code locally](#building) or using the convenient [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/TheAlgorithms/Go) service.
 
 #### GitHub Actions
 

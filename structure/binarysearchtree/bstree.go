@@ -1,13 +1,11 @@
 package binarytree
 
-import "fmt"
-
-// BTree Returns a binary tree structure which contains only a root Node
-type BTree struct {
+// BSTree Returns a binary search tree structure which contains only a root Node
+type BSTree struct {
 	Root *Node
 }
 
-// calculateDepth helper function for BTree's depth()
+// calculateDepth helper function for BSTree's depth()
 func calculateDepth(n *Node, depth int) int {
 	if n == nil {
 		return depth
@@ -15,7 +13,7 @@ func calculateDepth(n *Node, depth int) int {
 	return Max(calculateDepth(n.left, depth+1), calculateDepth(n.right, depth+1))
 }
 
-// Insert a value in the BTree
+// Insert a value in the BSTree
 func Insert(root *Node, val int) *Node {
 	if root == nil {
 		return NewNode(val)
@@ -28,18 +26,9 @@ func Insert(root *Node, val int) *Node {
 	return root
 }
 
-// Depth returns the calculated depth of a binary tree
-func (t *BTree) Depth() int {
+// Depth returns the calculated depth of a binary saerch tree
+func (t *BSTree) Depth() int {
 	return calculateDepth(t.Root, 0)
-}
-
-// InOrder add's children to a node in order left first then right recursively
-func InOrder(n *Node) {
-	if n != nil {
-		InOrder(n.left)
-		fmt.Print(n.val, " ")
-		InOrder(n.right)
-	}
 }
 
 // InOrderSuccessor Goes to the left
@@ -77,28 +66,58 @@ func BstDelete(root *Node, val int) *Node {
 	return root
 }
 
+// InOrder add's children to a node in order left first then right recursively
+func inOrderRecursive(n *Node, traversal *[]int) {
+	if n != nil {
+		inOrderRecursive(n.left, traversal)
+		*traversal = append(*traversal, n.val)
+		inOrderRecursive(n.right, traversal)
+	}
+}
+
+// Travers the tree in the following order left --> root --> right
+func InOrder(root *Node) []int {
+	traversal := make([]int, 0)
+	inOrderRecursive(root, &traversal)
+	return traversal
+}
+
 // PreOrder Preorder
-func PreOrder(n *Node) {
+func preOrderRecursive(n *Node, traversal *[]int) {
 	if n == nil {
 		return
 	}
-	fmt.Print(n.val, " ")
-	PreOrder(n.left)
-	PreOrder(n.right)
+	*traversal = append(*traversal, n.val)
+	preOrderRecursive(n.left, traversal)
+	preOrderRecursive(n.right, traversal)
+}
+
+// Travers the tree in the following order root --> left --> right
+func PreOrder(root *Node) []int {
+	traversal := make([]int, 0)
+	preOrderRecursive(root, &traversal)
+	return traversal
 }
 
 // PostOrder PostOrder
-func PostOrder(n *Node) {
+func postOrderRecursive(n *Node, traversal *[]int) {
 	if n == nil {
 		return
 	}
-	PostOrder(n.left)
-	PostOrder(n.right)
-	fmt.Print(n.val, " ")
+	postOrderRecursive(n.left, traversal)
+	postOrderRecursive(n.right, traversal)
+	*traversal = append(*traversal, n.val)
+}
+
+// Travers the tree in the following order left --> right --> root
+func PostOrder(root *Node) []int {
+	traversal := make([]int, 0)
+	postOrderRecursive(root, &traversal)
+	return traversal
 }
 
 // LevelOrder LevelOrder
-func LevelOrder(root *Node) {
+func levelOrderRecursive(root *Node, traversal *[]int) {
 	var q []*Node // queue
 	var n *Node   // temporary node
 
@@ -106,7 +125,7 @@ func LevelOrder(root *Node) {
 
 	for len(q) != 0 {
 		n, q = q[0], q[1:]
-		fmt.Print(n.val, " ")
+		*traversal = append(*traversal, n.val)
 		if n.left != nil {
 			q = append(q, n.left)
 		}
@@ -114,6 +133,12 @@ func LevelOrder(root *Node) {
 			q = append(q, n.right)
 		}
 	}
+}
+
+func LevelOrder(root *Node) []int {
+	traversal := make([]int, 0)
+	levelOrderRecursive(root, &traversal)
+	return traversal
 }
 
 // AccessNodesByLayer Function that access nodes layer by layer instead of printing the results as one line.
